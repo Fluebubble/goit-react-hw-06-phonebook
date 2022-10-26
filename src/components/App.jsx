@@ -5,10 +5,10 @@ import { nanoid } from 'nanoid';
 class App extends Component {
   state = {
     contacts: [
-      { name: 'Zopka', id: '23sa' },
-      { name: 'Zorik', id: '13' },
-      { name: 'Bebra', id: 'BebraID' },
-      { name: 'Zebra', id: 'ZebraID' },
+      { name: 'Chacha', id: '1' },
+      { name: 'Zorik', id: '2' },
+      { name: 'Petro', id: '3' },
+      { name: 'Kek', id: '4' },
     ],
     name: '',
   };
@@ -23,15 +23,28 @@ class App extends Component {
   handleSubmit = e => {
     e.preventDefault();
     this.setState(prevState => {
+      console.log(prevState.contacts);
       return {
-        contacts: prevState.contacts.push({
-          name: prevState.name,
+        contacts: this.state.contacts.push({
+          name: this.state.name,
           id: nanoid(),
         }),
       };
     });
-    console.log(this.state.contacts);
+    console.log(this.state);
   };
+  // handleSubmit = e => {
+  //   e.preventDefault();
+  //   this.setState(prevState => {
+  //     return {
+  //       contacts: prevState.contacts.push({
+  //         name: this.state.name,
+  //         id: nanoid(),
+  //       }),
+  //     };
+  //   });
+  //   console.log(this.state);
+  // };
 
   render() {
     return (

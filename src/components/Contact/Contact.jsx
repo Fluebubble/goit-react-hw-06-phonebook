@@ -3,7 +3,7 @@ export const Contact = ({ contacts }) => {
   return (
     <>
       {contacts.map(contact => {
-        console.log(contact.id)
+        console.log(contact.id, "Contact ID In Contact")
         return <li key={contact.id}>{contact.name}</li>;
       })}
     </>
