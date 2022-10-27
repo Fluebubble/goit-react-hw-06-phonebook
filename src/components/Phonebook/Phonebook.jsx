@@ -41,7 +41,3 @@ class Phonebook extends Component {
 }
 
 export default Phonebook;
-
-// const Phonebooks = () => {
-//   return <></>;
-// };
