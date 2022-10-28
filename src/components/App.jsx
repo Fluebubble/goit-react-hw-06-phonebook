@@ -1,60 +1,94 @@
-import Phonebook from './Phonebook/Phonebook';
+import ContactForm from './ContactForm/ContactForm';
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
+import { SearchContact } from './SearchContact/SearchContact';
+import { ContactList } from './ContactList/ContactList';
 
 class App extends Component {
   state = {
     contacts: [
-      { name: 'Chacha', id: '1' },
-      { name: 'Zorik', id: '2' },
-      { name: 'Petro', id: '3' },
-      { name: 'Kek', id: '4' },
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
+    filter: '',
     name: '',
+    number: '',
   };
 
-  handleNameChange = event => {
-    // console.log(event.currentTarget.value);
+  handleChange = event => {
+    console.log(event.currentTarget.name);
     this.setState({
-      name: event.currentTarget.value,
+      [event.currentTarget.name]: event.currentTarget.value,
+    });
+  };
+
+  handleNumberChange = event => {
+    this.setState({
+      number: event.currentTarget.value,
     });
   };
 
   handleSubmit = e => {
     e.preventDefault();
+
+    for (const contact of this.state.contacts) {
+      if (contact.name.includes(this.state.name)) {
+        alert(
+          `Контакт с именем ${this.state.name} уже добавлен в телефонную книгу`
+        );
+        return;
+      }
+    }
+
+    console.log(this.state.name);
+    console.log(this.state.number);
+    console.log(this.state.contacts);
     this.setState(prevState => {
-      console.log(prevState.contacts);
       return {
-        contacts: this.state.contacts.push({
-          name: this.state.name,
-          id: nanoid(),
-        }),
+        contacts: [
+          ...prevState.contacts,
+          {
+            name: this.state.name,
+            number: this.state.number,
+          },
+        ],
       };
     });
-    console.log(this.state);
+    console.log(this.state.contacts);
   };
-  // handleSubmit = e => {
-  //   e.preventDefault();
-  //   this.setState(prevState => {
-  //     return {
-  //       contacts: prevState.contacts.push({
-  //         name: this.state.name,
-  //         id: nanoid(),
-  //       }),
-  //     };
-  //   });
-  //   console.log(this.state);
-  // };
+
+  handleFilter = e => {
+    this.setState({ filter: e.currentTarget.value });
+    const filteredContacts = this.state.contacts.filter(contact =>
+      contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
+    );
+    // console.log(this.state.contacts)
+    this.setState({ contacts: filteredContacts });
+    console.log(filteredContacts);
+  };
 
   render() {
     return (
-      <Phonebook
-        contacts={this.state.contacts}
-        onSubmit={this.handleSubmit}
-        onNameChange={this.handleNameChange}
-        // onAddContact={this.handeAddContact}
-        name={this.state.name}
-      />
+      <>
+        <h2>ContactForm</h2>
+        <ContactForm
+          contacts={this.state.contacts}
+          onSubmit={this.handleSubmit}
+          onChange={this.handleChange}
+          name={this.state.name}
+          number={this.state.number}
+        />
+
+        <h2>Search</h2>
+        <SearchContact
+          onFilter={this.handleFilter}
+          filter={this.state.filter}
+        />
+        <ContactList contacts={this.state.contacts} />
+        <h2>Contacts</h2>
+      </>
     );
   }
 }
@@ -62,5 +96,5 @@ class App extends Component {
 export default App;
 
 // export const Apps = () => {
-//   return <Phonebook />;
+//   return <ContactForm />;
 // };

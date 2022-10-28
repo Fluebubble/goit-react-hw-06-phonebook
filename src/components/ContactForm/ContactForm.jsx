@@ -11,7 +11,7 @@ const Form = styled.form`
   gap: 15px;
 `;
 
-class Phonebook extends Component {
+class ContactForm extends Component {
   state = {
     inputValue: '',
   };
@@ -19,25 +19,36 @@ class Phonebook extends Component {
   render() {
     return (
       <>
-        <h2>Phonebook</h2>
         <Form name="add_contact_form" onSubmit={this.props.onSubmit}>
           <label>
+            Name
             <input
               type="text"
               name="name"
               pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
               title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
               value={this.props.name}
-              onChange={this.props.onNameChange}
-                required
+              onChange={this.props.onChange}
+              required
+            />
+          </label>
+          <label>
+            Number
+            <input
+              type="tel"
+              name="number"
+              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+              value={this.props.number}
+              onChange={this.props.onChange}
+              required
             />
           </label>
           <button type="submit">Add contact</button>
         </Form>
-        <ContactList contacts={this.props.contacts}/>
       </>
     );
   }
 }
 
-export default Phonebook;
+export default ContactForm;
