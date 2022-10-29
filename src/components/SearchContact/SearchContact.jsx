@@ -1,3 +1,5 @@
+import React, { Component } from 'react'
+
 export const SearchContact = ({ onFilter, filter }) => {
   return (
     <input
@@ -11,3 +13,12 @@ export const SearchContact = ({ onFilter, filter }) => {
     />
   );
 };
+
+// class Search extends Component {
+//   state = {  } 
+//   render() { 
+//     return ();
+//   }
+// }
+ 
+// export default Search;
