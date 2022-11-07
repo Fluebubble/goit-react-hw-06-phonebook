@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 export const SearchContact = ({ onFilter, filter }) => {
   return (
@@ -13,12 +13,3 @@ export const SearchContact = ({ onFilter, filter }) => {
     />
   );
 };
-
-// class Search extends Component {
-//   state = {  } 
-//   render() { 
-//     return ();
-//   }
-// }
- 
-// export default Search;

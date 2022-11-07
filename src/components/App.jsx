@@ -13,25 +13,14 @@ class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    // name: '',
-    // number: '',
   };
-
-  // handleChange = e => {
-  //   console.log(e.currentTarget.name);
-  //   this.setState({
-  //     [e.currentTarget.name]: e.currentTarget.value,
-  //   });
-  // };
 
   handleSubmit = (e, newName, newNumber) => {
     e.preventDefault();
 
     for (const contact of this.state.contacts) {
       if (contact.name === newName) {
-        alert(
-          `Контакт с именем ${newName} уже добавлен в телефонную книгу`
-        );
+        alert(`Контакт с именем ${newName} уже добавлен в телефонную книгу`);
         return;
       }
     }
@@ -56,7 +45,7 @@ class App extends Component {
 
   getVisibleContacts = () => {
     return this.state.contacts.filter(contact =>
-      contact.name.includes(this.state.filter)
+      contact.name.toLowerCase().includes(this.state.filter.toLowerCase())
     );
   };
 
