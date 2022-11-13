@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import React, { Component } from 'react';
-import { ContactList } from 'components/ContactList/ContactList';
 
 const Form = styled.form`
   display: flex;
