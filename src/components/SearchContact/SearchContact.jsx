@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export const SearchContact = ({ onFilter, filter }) => {
   return (
@@ -13,3 +14,8 @@ export const SearchContact = ({ onFilter, filter }) => {
     />
   );
 };
+
+SearchContact.propTypes = {
+  onFilter: PropTypes.func.isRequired,
+  filter: PropTypes.string.isRequired
+}

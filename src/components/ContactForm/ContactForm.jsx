@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 
 const Form = styled.form`
   display: flex;
@@ -26,7 +27,16 @@ class ContactForm extends Component {
   render() {
     return (
       <>
-        <Form name="add_contact_form" onSubmit={(e) => this.props.onSubmit(e, this.state.name, this.state.number)}>
+        <Form
+          name="add_contact_form"
+          onSubmit={e => {
+            this.props.onSubmit(e, this.state.name, this.state.number);
+            this.setState({
+              name: '',
+              number: '',
+            });
+          }}
+        >
           <label>
             Name
             <input
@@ -59,3 +69,7 @@ class ContactForm extends Component {
 }
 
 export default ContactForm;
+
+ContactForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+}

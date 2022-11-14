@@ -36,7 +36,8 @@ class App extends Component {
         ],
       };
     });
-    console.log(this.state.contacts);
+
+    
   };
 
   handleFilter = e => {
@@ -71,7 +72,6 @@ class App extends Component {
           filter={this.state.filter}
         />
         <ContactList
-          contacts={this.state.contacts}
           visibleContacts={this.getVisibleContacts()}
           onDelete={this.handleDeleteContact}
         />
