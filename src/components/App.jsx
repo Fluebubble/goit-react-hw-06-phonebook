@@ -2,7 +2,8 @@ import ContactForm from './ContactForm/ContactForm';
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 import { SearchContact } from './SearchContact/SearchContact';
-import { ContactList } from './ContactList/ContactList';
+import ContactList from './ContactList/ContactList';
+import { CONTACTS_KEY } from '../constants/constants';
 
 class App extends Component {
   state = {
@@ -36,8 +37,6 @@ class App extends Component {
         ],
       };
     });
-
-    
   };
 
   handleFilter = e => {
@@ -58,6 +57,18 @@ class App extends Component {
       contacts: newContacts,
     });
   };
+  componentDidMount() {
+    if (localStorage.getItem(CONTACTS_KEY)) {
+      this.setState({
+        contacts: JSON.parse(localStorage.getItem(CONTACTS_KEY)),
+      });
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      localStorage.setItem(CONTACTS_KEY, JSON.stringify(this.state.contacts));
+    }
+  }
 
   render() {
     return (
@@ -74,6 +85,7 @@ class App extends Component {
         <ContactList
           visibleContacts={this.getVisibleContacts()}
           onDelete={this.handleDeleteContact}
+          // contacts={this.contacts}
         />
       </>
     );

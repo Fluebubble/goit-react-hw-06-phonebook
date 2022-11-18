@@ -1,6 +1,27 @@
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export const ContactList = ({ visibleContacts, onDelete }) => {
+class ContactList extends Component {
+
+  render() {
+    return (
+      <ul>
+        {this.props.visibleContacts.map(contact => (
+          <li key={contact.id}>
+            {contact.name} {contact.number}{' '}
+            <button type="button" onClick={() => this.props.onDelete(contact.id)}>
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
+    );
+  }
+}
+
+export default ContactList;
+
+export const ContactLists = ({ visibleContacts, onDelete }) => {
   return (
     <>
       <ul>
