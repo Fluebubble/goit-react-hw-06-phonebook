@@ -4,6 +4,7 @@ import { nanoid } from 'nanoid';
 import { SearchContact } from './SearchContact/SearchContact';
 import ContactList from './ContactList/ContactList';
 import { CONTACTS_KEY } from '../constants/constants';
+import { Counter } from './Counter/Counter';
 
 class App extends Component {
   state = {
@@ -87,6 +88,7 @@ class App extends Component {
           onDelete={this.handleDeleteContact}
           // contacts={this.contacts}
         />
+        <Counter />
       </>
     );
   }
