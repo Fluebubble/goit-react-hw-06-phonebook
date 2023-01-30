@@ -1,38 +1,21 @@
-import {
-  configureStore,
-  createAction,
-  createReducer,
-  createSlice,
-} from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { contactsReducer } from './slices/contactsSlice';
+import { filterSliceReducer } from './slices/filterSlice';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
-const myValueSlice = createSlice({
-  name: 'myValue',
-  initialState: 150,
-  reducers: {
-    increment(state, action) {
-      return state + action.payload;
-    },
-    decrement(state, action) {
-      return state - action.payload;
-    },
-  },
+const rootReducer = combineReducers({
+  contacts: contactsReducer,
+  filter: filterSliceReducer,
 });
 
-export const { increment, decrement } = myValueSlice.actions;
+const persistConfig = {
+  key: 'root',
+  storage,
+};
 
-console.log(myValueSlice);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// export const increment = createAction('myValue/increment');
 
-// export const decrement = createAction('myValue/decrement');
-
-const myReducer = createReducer(100, {
-  [increment]: (state, action) => state + action.payload,
-  [decrement]: (state, action) => state - action.payload,
-});
-
-export const store = configureStore({
-  reducer: {
-    myValue: myValueSlice.reducer,
-  },
-});
+export const store = configureStore({ reducer: persistedReducer });
+export const persistor = persistStore(store);
