@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { addContact } from 'redux/slices/contactsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact, getContacts } from 'redux/slices/contactsSlice';
 import { nanoid } from 'nanoid';
 
 const Form = styled.form`
@@ -14,11 +14,22 @@ const Form = styled.form`
 `;
 
 const ContactForm = () => {
+  const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
   console.log();
   const handleSubmit = e => {
     e.preventDefault();
+
     const form = e.target;
+    for (const contact of contacts) {
+      if (contact.name === form.elements.name.value.trim()) {
+        alert(
+          `Контакт с именем ${form.elements.name.value} уже существует. Выберите другое имя`
+        );
+        return;
+      }
+    }
+
     dispatch(
       addContact({
         id: nanoid(),
